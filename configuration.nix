@@ -1,44 +1,15 @@
-{ lib, pkgs, system, user, ... }: {
+{ lib, system, ... }:
 
-  # SSH
-  services.openssh = {
-    enable = true;
-    startWhenNeeded = true;
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-    };
-  };
-
-  # Users
-  users = {
-    defaultUserShell = pkgs.bash;
-    users = {
-      root = {
-        openssh.authorizedKeys.keyFiles = [
-          (pkgs.fetchurl {
-            # replace with your own ssh key!
-            url = "https://github.com/yqlbu.keys";
-            hash = "sha256-msQCFEqniCZtu+m1MMmqFuEJBdKJ3y828+w7ORf/uP4=";
-          })
-        ];
-      };
-    };
-  };
-
-  # Locales
-  time.timeZone = "Asia/Shanghai";
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  # Packages
-  environment.systemPackages = with pkgs; [
-    nixpkgs-fmt
-    bash-completion
-    git
-    wget
+{
+  imports = [
+    ./system/nixos.nix
+    ./system/users.nix
+    ./system/services.nix
+    ./system/packages.nix
+    ./system/internalisation.nix
   ];
 
-  # Networking
+  # set hostname
   networking.hostName = "nixos-proxmox-host";
 
   # Settings specific to this VM setup
@@ -74,42 +45,5 @@
 
   # boot.growPartition = true;
 
-  # enable qemu-guest-agent
-  services.qemuGuest.enable = true;
-
-  # Nix settings
-  # Ref: https://nixos.wiki/wiki/Nixos-rebuild
-  nix = {
-    # enable flake
-    package = pkgs.nixFlakes;
-    extraOptions = "experimental-features = nix-command flakes";
-    settings = {
-      # enable auto-cleanup
-      auto-optimise-store = true;
-      # set max-jobs
-      max-jobs = lib.mkDefault 8;
-      # enable ccache (local compilation)
-      # extra-sandbox-paths = [ config.programs.ccache.cacheDir ];
-      trusted-users = [ "root" user ];
-      # trusted-public-keys = [ ];
-
-      # substituers will be appended to the default substituters when fetching packages
-      extra-substituters = [ ];
-      extra-trusted-public-keys = [ ];
-      # ref: https://github.com/NixOS/nix/issues/4894
-      # workaround to fix ssh signature issues
-      require-sigs = false;
-    };
-
-    # garbage collection
-    gc = {
-      automatic = true;
-      dates = "daily";
-      options = "--delete older-than 3d";
-    };
-  };
-
   nixpkgs.hostPlatform = lib.mkDefault system;
-
-  system.stateVersion = "23.11";
 }

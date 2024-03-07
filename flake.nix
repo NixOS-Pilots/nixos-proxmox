@@ -9,7 +9,7 @@
   outputs = { self, nixpkgs, ... }@inputs:
     let
       system = "x86_64-linux";
-      user = "kev";
+      inherit (import ./vars.nix) user;
       pkgs = (import nixpkgs) { inherit system; };
       specialArgs = { inherit inputs pkgs system user; };
       stdenv = pkgs.stdenv;
