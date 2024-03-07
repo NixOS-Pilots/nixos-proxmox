@@ -21,7 +21,7 @@
         inherit specialArgs;
         modules = [
           "${nixpkgs}/nixos/modules/virtualisation/proxmox-image.nix"
-          ./configuration.nix
+          ./host/configuration.nix
           {
             proxmox = {
               # Reference: https://pve.proxmox.com/wiki/Qemu/KVM_Virtual_Machines#qm_virtual_machines_settings
