@@ -35,7 +35,7 @@ Credit to @Mayniklas,@techprober and inspired by [Mayniklas/nixos-proxmox].
 
 ```bash
 # build VMA image
-nix build '.#proxmox-image'
+nix build .#proxmox-image
 ```
 
 ### Upload the image to Proxmox
