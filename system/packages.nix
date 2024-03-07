@@ -6,6 +6,7 @@
     nixpkgs-fmt
     bash-completion
     git
+    vim
     wget
   ];
 }
