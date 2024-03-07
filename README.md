@@ -9,6 +9,15 @@
   <img src="https://custom-icon-badges.herokuapp.com/github/last-commit/yqlbu/nixos-config?style=flat&logo=history&colorA=24273A&colorB=C4EEF2" alt="lastcommit"/>
 </p>
 
+---
+
+> [!NOTE]
+> The image can be build locally, or by using the included GitHub action.
+
+Credit to @Mayniklas,@techprober and inspired by [Mayniklas/nixos-proxmox].
+
+## Table of Contents
+
 <!-- vim-markdown-toc GFM -->
 
 * [Deployment](#deployment)
@@ -19,11 +28,6 @@
 * [References](#references)
 
 <!-- vim-markdown-toc -->
-
-> ![NOTE]
-> The image can be build locally, or by using the included GitHub action.
-
-Credit to @Mayniklas,@techprober and inspired by [Mayniklas/nixos-proxmox].
 
 ## Deployment
 
