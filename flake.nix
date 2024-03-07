@@ -30,6 +30,7 @@
                 bios = "ovmf";
                 cores = 4;
                 memory = 2048;
+                net0 = "virtio=00:00:00:00:00:00,bridge=vmbr2,firewall=1";
               };
               qemuExtraConf = {
                 # start the VM automatically on boot
