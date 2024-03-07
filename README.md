@@ -1,6 +1,6 @@
 <h1 align="center">❄️  NixOS on Proxmox</h1>
 <p align="center">
-    <em>Deploy a minim NixOS VM on Proxmox at speed</em>
+    <em>Deploy a minimum NixOS VM on Proxmox at speed</em>
 </p>
 <p align="center">
   <img src="https://custom-icon-badges.herokuapp.com/github/license/yqlbu/nixos-config?style=flat&logo=law&colorA=24273A&color=blue" alt="License"/>
