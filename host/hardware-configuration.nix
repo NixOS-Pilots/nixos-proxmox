@@ -10,7 +10,7 @@
     supportedFilesystems = [ "ext4" "btrfs" "xfs" "fat" "vfat" "cifs" "nfs" ];
     growPartition = true;
     kernelModules = [ "kvm-amd" ];
-    kernelParams = [ ];
+    kernelParams = lib.mkForce [ ];
 
     loader = {
       grub = {
