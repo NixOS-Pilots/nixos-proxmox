@@ -43,6 +43,13 @@ nix build '.#proxmox-image'
 Upload the image to a location, that is accessible by Proxmox.
 
 ```bash
+# scp build artifact to Proxmox
+scp ./result/*.vma.zst root@<proxmox-ip>:/root/
+```
+
+Create a VM using `qmrestore`
+
+```bash
 # import the VM from VMA image
 # unique is required to randomize the MAC address of the network interface
 # storage is the name of the storage, where we create the VM
