@@ -1,4 +1,4 @@
-_:
+{ lib, ... }:
 
 {
   # enable openssh
@@ -8,6 +8,7 @@ _:
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
+      PermitRootLogin = lib.mkForce "prohibit-password"; # enable root login for remote deploy
     };
   };
 
