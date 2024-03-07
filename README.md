@@ -67,3 +67,4 @@ nixos-rebuild switch --flake .#proxmox-host
 ## References
 
 - [github.com/MayNiklas/nixos-proxmox](https://github.com/MayNiklas/nixos-proxmox/)
+- [github.com/NixOS/nixpkgs/.../proxmox-image.nix](https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/proxmox-image.nix#L272-L274)
