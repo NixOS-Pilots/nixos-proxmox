@@ -12,7 +12,7 @@ default:
 
 # build pkg
 build pkg:
-  @nix build .#{{ pkg }}
+  @nom build .#{{ pkg }}
 
 # check version
 version pkg:
@@ -20,11 +20,24 @@ version pkg:
 
 # update all flake inputs
 update:
-  @sudo nix flake update
+  @nix flake update
+
+# show flake
+show:
+  @nix flake show
+
+# check flake
+check:
+  @nix flake check
+
+# apply fix from linters
+lint:
+  @statix fix --ignore 'templates/' .
+  @deadnix --edit --exclude 'templates/' .
 
 # update a particular flake input
 update-input input:
-  @sudo nix flake lock --update-input {{ input }}
+  @nix flake lock --update-input {{ input }}
 
 # nix-prefetch-url
 prefetch-url url:
@@ -37,4 +50,3 @@ prefetch-git repo rev:
 # stage all files
 add:
   @git add .
-

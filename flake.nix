@@ -3,21 +3,33 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
 
-
-  outputs = { self, nixpkgs, ... }@inputs:
+  outputs = { self, nixpkgs, ... }@inputs: with inputs;
     let
       system = "x86_64-linux";
       inherit (import ./vars.nix) user;
       pkgs = (import nixpkgs) { inherit system; };
+      inherit (nixpkgs) lib;
       specialArgs = { inherit inputs pkgs system user; };
-      stdenv = pkgs.stdenv;
+      # function to generate pre-commit-checks
+      genChecks = system: (pre-commit-hooks.lib.${system}.run {
+        src = ./.;
+        hooks = {
+          nixpkgs-fmt.enable = true; # formatter
+          statix.enable = true; # linter
+          deadnix.enable = true; # linter
+        };
+      });
     in
     {
+      # checks
+      checks.${system}.pre-commit-check = genChecks system;
+
       # See for further options:
       # https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/virtualisation/proxmox-image.nix
-      nixosConfigurations.proxmox-host = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.proxmox-host = lib.nixosSystem {
         inherit specialArgs;
         modules = [
           "${nixpkgs}/nixos/modules/virtualisation/proxmox-image.nix"
@@ -46,12 +58,12 @@
         ];
       };
 
-      packages.x86_64-linux = {
+      packages.${system} = {
         # nix build .#proxmox-image
         proxmox-image = self.nixosConfigurations.proxmox-host.config.system.build.VMA;
 
         # nix build .#proxmox-image-uncompressed
-        proxmox-image-uncompressed = stdenv.mkDerivation {
+        proxmox-image-uncompressed = pkgs.stdenv.mkDerivation {
           name = "proxmox-image-uncompressed";
           dontUnpack = true;
           installPhase = ''
