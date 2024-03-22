@@ -14,7 +14,7 @@
 > [!NOTE]
 > The image can be build locally, or by using the included GitHub action.
 
-Credit to [@Mayniklas](https://github.com/Mayniklas), [@techprober](https://github.com/nixos-proxmox) and inspired by [Mayniklas/nixos-proxmox](https://github.com/Mayniklas/nixos-proxmox).
+Credit to [@Mayniklas](https://github.com/Mayniklas), [@NixOS-Pilots](https://github.com/NixOS-Pilots) and inspired by [Mayniklas/nixos-proxmox](https://github.com/Mayniklas/nixos-proxmox).
 
 ## Table of Contents
 
