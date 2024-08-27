@@ -3,9 +3,11 @@
 let
   keyFiles = [
     (pkgs.fetchurl {
-      # replace with your own ssh key!
-      url = "https://github.com/yqlbu.keys";
-      hash = "sha256-msQCFEqniCZtu+m1MMmqFuEJBdKJ3y828+w7ORf/uP4=";
+      # replace <github_user> with your own ssh key!
+      # command to generate the hash:
+      # nix-prefetch-url --type sha256 'https://github.com/<github_user>.gpg' | xargs nix hash to-sri --type sha256
+      url = "https://github.com/<github_user>.keys";
+      hash = "sha256-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
     })
   ];
 in
