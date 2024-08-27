@@ -5,7 +5,7 @@
 <p align="center">
   <img src="https://custom-icon-badges.herokuapp.com/github/license/yqlbu/nixos-config?style=flat&logo=law&colorA=24273A&color=blue" alt="License"/>
   <img src="https://img.shields.io/static/v1?label=Nix Flake&message=check&style=flat&logo=nixos&colorA=24273A&colorB=9173ff&logoColor=CAD3F5">
-  <img src="https://img.shields.io/badge/NixOS-23.11-informational.svg?style=flat&logo=nixos&logoColor=CAD3F5&colorA=24273A&colorB=8AADF4">
+  <img src="https://img.shields.io/badge/NixOS-24.05-informational.svg?style=flat&logo=nixos&logoColor=CAD3F5&colorA=24273A&colorB=8AADF4">
   <img src="https://custom-icon-badges.herokuapp.com/github/last-commit/yqlbu/nixos-config?style=flat&logo=history&colorA=24273A&colorB=C4EEF2" alt="lastcommit"/>
 </p>
 
@@ -20,14 +20,36 @@ Credit to [@Mayniklas](https://github.com/Mayniklas), [@NixOS-Pilots](https://gi
 
 <!-- vim-markdown-toc GFM -->
 
+* [Prerequisites](#prerequisites)
+  * [Update user ssh-keys](#update-user-ssh-keys)
 * [Deployment](#deployment)
-    * [Build the image](#build-the-image)
-    * [Upload the image to Proxmox](#upload-the-image-to-proxmox)
+  * [Build the image](#build-the-image)
+  * [Upload the image to Proxmox](#upload-the-image-to-proxmox)
 * [Apply config changes](#apply-config-changes)
 * [Contribution](#contribution)
 * [References](#references)
 
 <!-- vim-markdown-toc -->
+
+## Prerequisites
+
+### Update user ssh-keys
+
+In `./system/users.nix`, update the `keyFiles` attribute with your own ssh key.
+
+```nix
+{
+  keyFiles = [
+    (pkgs.fetchurl {
+      # replace <github_user> with your own ssh key!
+      # command to generate the hash:
+      # nix-prefetch-url --type sha256 'https://github.com/<github_user>.gpg' | xargs nix hash to-sri --type sha256
+      url = "https://github.com/<github_user>.keys";
+      hash = "sha256-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+    })
+  ];
+}
+```
 
 ## Deployment
 
