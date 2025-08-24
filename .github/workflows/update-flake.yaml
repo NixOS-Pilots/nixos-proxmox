@@ -3,10 +3,20 @@ name: (Cron) Synchronize upstream flake inputs
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 * * 0"
+    # Run this Action every month at 0:00pm UTC
+    - cron: "0 0 1 * *"
+
+env:
+  OWNER: NixOS-Pilots
+  TARGETS: |
+    auto-cpufreq
+  PR_LABELS: |
+    nixpkgs
+    pre-commit-hooks
+  GIT_COMMIT_MESSAGE: "chore(flake) update flake.lock for the selected upstream inputs"
 
 jobs:
-  lockfile:
+  update-flake:
     runs-on: ubuntu-latest
     steps:
       - name: Generate GitHub auth token
@@ -26,8 +36,14 @@ jobs:
       - uses: DeterminateSystems/flake-checker-action@main
 
       - name: Update flake.lock
-        id: update
+        id: update-flake-lock
         uses: DeterminateSystems/update-flake-lock@main
+        with:
+          pr-title: ${{ env.GIT_COMMIT_MESSAGE }}
+          pr-labels: ${{ env.PR_LABELS }}
+          inputs: ${{ env.TARGETS }}
+          token: ${{ steps.generate_token.outputs.token }}
+          pr-assignees: ${{ env.OWNER }}
 
       - name: Print PR number
         run: |
