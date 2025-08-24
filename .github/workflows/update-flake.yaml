@@ -9,10 +9,11 @@ on:
 env:
   MAINTAINERS: piyoki
   TARGETS: |
-    auto-cpufreq
-  PR_LABELS: |
     nixpkgs
     pre-commit-hooks
+  PR_LABELS: |
+    flake-lock
+    automated-pr
   GIT_COMMIT_MESSAGE: "chore(flake) update flake.lock for the selected upstream inputs"
 
 jobs:
