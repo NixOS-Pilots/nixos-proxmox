@@ -7,7 +7,7 @@ on:
     - cron: "0 0 1 * *"
 
 env:
-  OWNER: NixOS-Pilots
+  MAINTAINERS: piyoki
   TARGETS: |
     auto-cpufreq
   PR_LABELS: |
@@ -43,7 +43,7 @@ jobs:
           pr-labels: ${{ env.PR_LABELS }}
           inputs: ${{ env.TARGETS }}
           token: ${{ steps.generate_token.outputs.token }}
-          pr-assignees: ${{ env.OWNER }}
+          pr-assignees: ${{ env.MAINTAINERS }}
 
       - name: Print PR number
         run: |
