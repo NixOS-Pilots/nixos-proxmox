@@ -2,7 +2,7 @@
   description = "A flake to bootstrap a KVM template for Proxmox";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
 
